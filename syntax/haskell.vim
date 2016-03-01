@@ -118,59 +118,59 @@ if exists('g:haskell_enable_pattern_synonyms') && g:haskell_enable_pattern_synon
   syn keyword haskellPatternKeyword pattern
 endif
 
-highlight def link haskellBottom Macro
-highlight def link haskellTH Boolean
-highlight def link haskellBlockKeywords Structure
-highlight def link haskellIdentifier Identifier
-highlight def link haskellForeignKeywords Structure
-highlight def link haskellDeriving Structure
-highlight def link haskellStatement Statement
-highlight def link haskellDefault Statement
-highlight def link haskellConditional Conditional
-highlight def link haskellNumber Number
-highlight def link haskellFloat Float
-highlight def link haskellSeparator Delimiter
-highlight def link haskellDelimiter Delimiter
-highlight def link haskellInfix PreProc
-highlight def link haskellOperators Operator
-highlight def link haskellQuote Operator
-highlight def link haskellQuotedType Include
-highlight def link haskellType Include
-highlight def link haskellShebang Comment
-highlight def link haskellLineComment Comment
-highlight def link haskellBlockComment Comment
-highlight def link haskellPragma SpecialComment
-highlight def link haskellString String
-highlight def link haskellChar String
-highlight def link haskellBacktick Operator
-highlight def link haskellPreProc Macro
-highlight def link haskellTodo Todo
-highlight def link haskellAssocType Structure
-highlight def link haskellImportBlock Delimiter
-highlight def link haskellImportKeywords Structure
-highlight def link haskellDeclKeyword Structure
-highlight def link haskellDecl Structure
-highlight def link haskellWhere Structure
-highlight def link haskellLet Structure
-highlight def link haskellQuasiQuoted String
+highlight! def link haskellBottom Macro
+highlight! def link haskellTH Boolean
+highlight! def link haskellBlockKeywords Structure
+highlight! def link haskellIdentifier Identifier
+highlight! def link haskellForeignKeywords Structure
+highlight! def link haskellDeriving Structure
+highlight! def link haskellStatement Statement
+highlight! def link haskellDefault Statement
+highlight! def link haskellConditional Conditional
+highlight! def link haskellNumber Number
+highlight! def link haskellFloat Float
+highlight! def link haskellSeparator Separator
+highlight! def link haskellDelimiter Delimiter
+highlight! def link haskellInfix PreProc
+highlight! def link haskellOperators GruvboxBlue
+highlight! def link haskellQuote Operator
+highlight! def link haskellQuotedType GruvboxPurple
+highlight! def link haskellType GruvboxPurple
+highlight! def link haskellShebang Comment
+highlight! def link haskellLineComment Comment
+highlight! def link haskellBlockComment Comment
+highlight! def link haskellPragma SpecialComment
+highlight! def link haskellString String
+highlight! def link haskellChar String
+highlight! def link haskellBacktick Operator
+highlight! def link haskellPreProc Macro
+highlight! def link haskellTodo Todo
+highlight! def link haskellAssocType Structure
+highlight! def link haskellImportBlock Delimiter
+highlight! def link haskellImportKeywords Structure
+highlight! def link haskellDeclKeyword Structure
+highlight! def link haskellDecl Structure
+highlight! def link haskellWhere Structure
+highlight! def link haskellLet Structure
+highlight! def link haskellQuasiQuoted String
 
 if exists('g:haskell_enable_quantification') && g:haskell_enable_quantification == 1
-  highlight def link haskellForall Operator
+  highlight! def link haskellForall GruvboxBlue
 endif
 if exists('g:haskell_enable_recursivedo') && g:haskell_enable_recursivedo == 1
-  highlight def link haskellRecursiveDo Operator
+  highlight! def link haskellRecursiveDo GruvboxBlue
 endif
 if exists('g:haskell_enable_arrowsyntax') && g:haskell_enable_arrowsyntax == 1
-  highlight def link haskellArrowSyntax Operator
+  highlight! def link haskellArrowSyntax GruvboxBlue
 endif
 if exists('g:haskell_enable_pattern_synonyms') && g:haskell_enable_pattern_synonyms == 1
-  highlight def link haskellPatternKeyword Structure
+  highlight! def link haskellPatternKeyword Structure
 endif
 if exists('g:haskell_enable_typeroles') && g:haskell_enable_typeroles == 1
-  highlight def link haskellTypeRoles Structure
+  highlight! def link haskellTypeRoles Structure
 endif
 if exists('g:haskell_enable_static_pointers') && g:haskell_enable_static_pointers == 1
-  highlight def link haskellStatic Statement
+  highlight! def link haskellStatic Statement
 endif
 
 let b:current_syntax = "haskell"
