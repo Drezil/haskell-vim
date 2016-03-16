@@ -17,16 +17,17 @@ syn match haskellRecordField contained containedin=haskellBlock
   \ haskellIdentifier,
   \ haskellOperators,
   \ haskellSeparator,
-  \ haskellParens,
+  \ haskellParens
 syn match haskellTypeSig
   \ "^\s*\(where\s\+\|let\s\+\|default\s\+\)\?[_a-z][a-zA-Z0-9_']*\(,\s*[_a-z][a-zA-Z0-9_']*\)*\(\s*::\|\n\s\+::\)"
   \ contains=
   \ haskellWhere,
   \ haskellLet,
+  \ haskellDefault,
   \ haskellIdentifier,
   \ haskellOperators,
   \ haskellSeparator,
-  \ haskellParens,
+  \ haskellParens
 syn keyword haskelLWhere where
 syn keyword haskellLet let
 syn keyword haskellDeclKeyword module class instance newtype deriving in
@@ -48,8 +49,8 @@ syn match haskellImport "^\<import\>\s\+\(\<safe\>\s\+\)\?\(\<qualified\>\s\+\)\
   \ haskellType,
   \ haskellLineComment,
   \ haskellBlockComment,
-  \ haskellPragma,
-syn keyword haskellStatement do case of
+  \ haskellPragma
+syn keyword haskellKeyword do case of
 if exists('g:haskell_enable_static_pointers') && g:haskell_enable_static_pointers == 1
   syn keyword haskellStatic static
 endif
@@ -134,8 +135,10 @@ highlight! def link haskellDelimiter Delimiter
 highlight! def link haskellInfix PreProc
 highlight! def link haskellOperators GruvboxBlue
 highlight! def link haskellQuote Operator
-highlight! def link haskellQuotedType GruvboxPurple
-highlight! def link haskellType GruvboxPurple
+highlight! def link haskellQuotedType Type
+" GruvboxPurple
+highlight! def link haskellType Type
+" GruvboxPurple
 highlight! def link haskellShebang Comment
 highlight! def link haskellLineComment Comment
 highlight! def link haskellBlockComment Comment
@@ -143,16 +146,25 @@ highlight! def link haskellPragma SpecialComment
 highlight! def link haskellString String
 highlight! def link haskellChar String
 highlight! def link haskellBacktick Operator
-highlight! def link haskellPreProc Macro
+highlight! def link haskellPreProc PreProc
 highlight! def link haskellTodo Todo
-highlight! def link haskellAssocType Structure
+highlight! def link haskellAssocType Type
 highlight! def link haskellImportBlock Delimiter
-highlight! def link haskellImportKeywords Structure
-highlight! def link haskellDeclKeyword Structure
-highlight! def link haskellDecl Structure
-highlight! def link haskellWhere Structure
-highlight! def link haskellLet Structure
+highlight! def link haskellImportKeywords Import
+highlight! def link haskellDeclKeyword Keyword
+highlight! def link haskellDecl Keyword
+highlight! def link haskellWhere Keyword
+highlight! def link haskellLet Keyword
 highlight! def link haskellQuasiQuoted String
+" highlight def link haskellPreProc Macro
+" highlight def link haskellAssocType Structure
+" highlight def link haskellImportKeywords Structure
+" highlight def link haskellDeclKeyword Structure
+" highlight def link haskellDecl Structure
+" highlight def link haskellWhere Structure
+" highlight def link haskellLet Structure
+" highlight def link haskellQuotedType Include
+" highlight def link haskellType Include
 
 if exists('g:haskell_enable_quantification') && g:haskell_enable_quantification == 1
   highlight! def link haskellForall GruvboxBlue
@@ -167,10 +179,10 @@ if exists('g:haskell_enable_pattern_synonyms') && g:haskell_enable_pattern_synon
   highlight! def link haskellPatternKeyword Structure
 endif
 if exists('g:haskell_enable_typeroles') && g:haskell_enable_typeroles == 1
-  highlight! def link haskellTypeRoles Structure
+  highlight! def link haskellTypeRoles Keyword
 endif
 if exists('g:haskell_enable_static_pointers') && g:haskell_enable_static_pointers == 1
-  highlight! def link haskellStatic Statement
+  highlight! def link haskellStatic Keyword
 endif
 
 let b:current_syntax = "haskell"
