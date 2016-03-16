@@ -146,16 +146,16 @@ highlight! def link haskellPragma SpecialComment
 highlight! def link haskellString String
 highlight! def link haskellChar String
 highlight! def link haskellBacktick Operator
-highlight! def link haskellPreProc PreProc
+highlight! def link haskellPreProc Macro
 highlight! def link haskellTodo Todo
-highlight! def link haskellAssocType Type
+highlight! def link haskellAssocType Structure
 highlight! def link haskellImportBlock Delimiter
-highlight! def link haskellImportKeywords Import
-highlight! def link haskellDeclKeyword Keyword
-highlight! def link haskellDecl Keyword
-highlight! def link haskellWhere Keyword
-highlight! def link haskellLet Keyword
-highlight! def link haskellQuasiQuoted String
+highlight! def link haskellImportKeywords Structure
+highlight! def link haskellDeclKeyword Structure
+highlight! def link haskellDecl Structure
+highlight! def link haskellWhere Structure
+highlight! def link haskellLet Structure
+highlight! def link haskellQuasiQuoted Include
 " highlight def link haskellPreProc Macro
 " highlight def link haskellAssocType Structure
 " highlight def link haskellImportKeywords Structure
