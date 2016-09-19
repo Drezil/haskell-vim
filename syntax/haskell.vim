@@ -11,6 +11,7 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+syn spell notoplevel
 syn match haskellRecordField contained containedin=haskellBlock
   \ "[_a-z][a-zA-Z0-9_']*\(,\s*[_a-z][a-zA-Z0-9_']*\)*\(\s*::\|\n\s\+::\)"
   \ contains=
@@ -28,7 +29,7 @@ syn match haskellTypeSig
   \ haskellOperators,
   \ haskellSeparator,
   \ haskellParens
-syn keyword haskelLWhere where
+syn keyword haskellWhere where
 syn keyword haskellLet let
 syn keyword haskellDeclKeyword module class instance newtype deriving in
 syn match haskellDecl "\<\(type\|data\)\>\s\+\(\<family\>\)\?"
@@ -58,9 +59,9 @@ syn keyword haskellConditional if then else
 syn match haskellNumber "\<[0-9]\+\>\|\<0[xX][0-9a-fA-F]\+\>\|\<0[oO][0-7]\+\>\|\<0[bB][10]\+\>"
 syn match haskellFloat "\<[0-9]\+\.[0-9]\+\([eE][-+]\=[0-9]\+\)\=\>"
 syn match haskellSeparator  "[,;]"
-syn region haskellParens matchgroup=haskellDelimiter start="(" end=")" contains=TOP,haskellTypeSig
-syn region haskellBrackets matchgroup=haskellDelimiter start="\[" end="]" contains=TOP,haskellTypeSig
-syn region haskellBlock matchgroup=haskellDelimiter start="{" end="}" contains=TOP
+syn region haskellParens matchgroup=haskellDelimiter start="(" end=")" contains=TOP,haskellTypeSig,@Spell
+syn region haskellBrackets matchgroup=haskellDelimiter start="\[" end="]" contains=TOP,haskellTypeSig,@Spell
+syn region haskellBlock matchgroup=haskellDelimiter start="{" end="}" contains=TOP,@Spell
 syn keyword haskellInfix infix infixl infixr
 syn keyword haskellBottom undefined error
 syn match haskellOperators "[-!#$%&\*\+/<=>\?@\\^|~:.]\+\|\<_\>"
@@ -92,7 +93,7 @@ syn region haskellBlockComment start="{-" end="-}"
   \ @Spell
 syn region haskellPragma start="{-#" end="#-}"
 syn match haskellQuasiQuoted "." containedin=haskellQuasiQuote contained
-syn region haskellQuasiQuote matchgroup=haskellTH start="\[[_a-z][a-zA-z0-9_']*|" end="|\]"
+syn region haskellQuasiQuote matchgroup=haskellTH start="\[[_a-zA-Z][a-zA-z0-9._']*|" end="|\]"
 syn region haskellTHBlock matchgroup=haskellTH start="\[\(d\|t\|p\)\?|" end="|]" contains=TOP
 syn region haskellTHDoubleBlock matchgroup=haskellTH start="\[||" end="||]" contains=TOP
 syn match haskellPreProc "^#.*$"
