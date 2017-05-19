@@ -11,25 +11,21 @@ elseif exists("b:current_syntax")
   finish
 endif
 
-if !exists('g:haskell_disable_TH')
-    let g:haskell_disable_TH = 0
-endif
-
-if exists('g:haskell_backpack') && g:haskell_backpack == 1
+if get(g:, 'haskell_backpack', 0)
   syn keyword haskellBackpackStructure unit signature
   syn keyword haskellBackpackDependency dependency
 endif
 
 syn spell notoplevel
 syn match haskellRecordField contained containedin=haskellBlock
-  \ "[_a-z][a-zA-Z0-9_']*\(,\s*[_a-z][a-zA-Z0-9_']*\)*\(\s*::\|\n\s\+::\)"
+  \ "[_a-z][a-zA-Z0-9_']*\(,\s*[_a-z][a-zA-Z0-9_']*\)*\_s\+::\s"
   \ contains=
   \ haskellIdentifier,
   \ haskellOperators,
   \ haskellSeparator,
   \ haskellParens
 syn match haskellTypeSig
-  \ "^\s*\(where\s\+\|let\s\+\|default\s\+\)\?[_a-z][a-zA-Z0-9_']*\(,\s*[_a-z][a-zA-Z0-9_']*\)*\(\s*::\|\n\s\+::\)"
+  \ "^\s*\(where\s\+\|let\s\+\|default\s\+\)\?[_a-z][a-zA-Z0-9_']*\(,\s*[_a-z][a-zA-Z0-9_']*\)*\_s\+::\s"
   \ contains=
   \ haskellWhere,
   \ haskellLet,
@@ -45,7 +41,7 @@ syn match haskellDecl "\<\(type\|data\)\>\s\+\(\<family\>\)\?"
 syn keyword haskellDefault default
 syn keyword haskellImportKeywords import qualified safe as hiding contained
 syn keyword haskellForeignKeywords foreign export import ccall safe unsafe interruptible capi prim contained
-syn region haskellForeignImport start="\<foreign\>" end="::" keepend
+syn region haskellForeignImport start="\<foreign\>" end="\_s\+::\s" keepend
   \ contains=
   \ haskellString,
   \ haskellOperators,
@@ -61,7 +57,7 @@ syn match haskellImport "^\s*\<import\>\s\+\(\<safe\>\s\+\)\?\(\<qualified\>\s\+
   \ haskellBlockComment,
   \ haskellPragma
 syn keyword haskellKeyword do case of
-if exists('g:haskell_enable_static_pointers') && g:haskell_enable_static_pointers == 1
+if get(g:, 'haskell_enable_static_pointers', 0)
   syn keyword haskellStatic static
 endif
 syn keyword haskellConditional if then else
@@ -105,99 +101,101 @@ syn match haskellPreProc "^#.*$"
 syn keyword haskellTodo TODO FIXME contained
 " Treat a shebang line at the start of the file as a comment
 syn match haskellShebang "\%^#!.*$"
-if exists('g:haskell_disable_TH') && g:haskell_disable_TH == 0
+if !get(g:, 'haskell_disable_TH', 0)
     syn match haskellQuasiQuoted "." containedin=haskellQuasiQuote contained
     syn region haskellQuasiQuote matchgroup=haskellTH start="\[[_a-zA-Z][a-zA-z0-9._']*|" end="|\]"
     syn region haskellTHBlock matchgroup=haskellTH start="\[\(d\|t\|p\)\?|" end="|]" contains=TOP
     syn region haskellTHDoubleBlock matchgroup=haskellTH start="\[||" end="||]" contains=TOP
 endif
-if exists('g:haskell_enable_typeroles') && g:haskell_enable_typeroles == 1
+if get(g:, 'haskell_enable_typeroles', 0)
   syn keyword haskellTypeRoles phantom representational nominal contained
   syn region haskellTypeRoleBlock matchgroup=haskellTypeRoles start="type\s\+role" end="$" keepend
     \ contains=
     \ haskellType,
     \ haskellTypeRoles
 endif
-if exists('g:haskell_enable_quantification') && g:haskell_enable_quantification == 1
+if get(g:, 'haskell_enable_quantification', 0)
   syn keyword haskellForall forall
 endif
-if exists('g:haskell_enable_recursivedo') && g:haskell_enable_recursivedo == 1
+if get(g:, 'haskell_enable_recursivedo', 0)
   syn keyword haskellRecursiveDo mdo rec
 endif
-if exists('g:haskell_enable_arrowsyntax') && g:haskell_enable_arrowsyntax == 1
+if get(g:, 'haskell_enable_arrowsyntax', 0)
   syn keyword haskellArrowSyntax proc
 endif
-if exists('g:haskell_enable_pattern_synonyms') && g:haskell_enable_pattern_synonyms == 1
+if get(g:, 'haskell_enable_pattern_synonyms', 0)
   syn keyword haskellPatternKeyword pattern
 endif
 
-highlight! def link haskellBottom Macro
-highlight! def link haskellTH Boolean
-highlight! def link haskellBlockKeywords Structure
-highlight! def link haskellIdentifier Identifier
-highlight! def link haskellForeignKeywords Structure
-highlight! def link haskellDeriving Structure
-highlight! def link haskellStatement Statement
-highlight! def link haskellDefault Statement
-highlight! def link haskellConditional Conditional
-highlight! def link haskellNumber Number
-highlight! def link haskellFloat Float
-highlight! def link haskellSeparator Separator
-highlight! def link haskellDelimiter Delimiter
-highlight! def link haskellInfix PreProc
-highlight! def link haskellOperators GruvboxBlue
-highlight! def link haskellQuote Operator
-highlight! def link haskellQuotedType Type
-" GruvboxPurple
-highlight! def link haskellType Type
-" GruvboxPurple
-highlight! def link haskellShebang Comment
-highlight! def link haskellLineComment Comment
-highlight! def link haskellBlockComment Comment
-highlight! def link haskellPragma SpecialComment
-highlight! def link haskellString String
-highlight! def link haskellChar String
-highlight! def link haskellBacktick Operator
-highlight! def link haskellPreProc Macro
-highlight! def link haskellTodo Todo
-highlight! def link haskellAssocType Structure
-highlight! def link haskellImportBlock Delimiter
-highlight! def link haskellImportKeywords Structure
-highlight! def link haskellDeclKeyword Structure
-highlight! def link haskellDecl Structure
-highlight! def link haskellWhere Structure
-highlight! def link haskellLet Structure
-highlight! def link haskellQuasiQuoted Include
-" highlight def link haskellPreProc Macro
-" highlight def link haskellAssocType Structure
-" highlight def link haskellImportKeywords Structure
-" highlight def link haskellDeclKeyword Structure
-" highlight def link haskellDecl Structure
-" highlight def link haskellWhere Structure
-" highlight def link haskellLet Structure
-" highlight def link haskellQuotedType Include
-" highlight def link haskellType Include
-
-if exists('g:haskell_enable_quantification') && g:haskell_enable_quantification == 1
-  highlight! def link haskellForall GruvboxBlue
-endif
-if exists('g:haskell_enable_recursivedo') && g:haskell_enable_recursivedo == 1
-  highlight! def link haskellRecursiveDo GruvboxBlue
-endif
-if exists('g:haskell_enable_arrowsyntax') && g:haskell_enable_arrowsyntax == 1
-  highlight! def link haskellArrowSyntax GruvboxBlue
-endif
-if exists('g:haskell_enable_pattern_synonyms') && g:haskell_enable_pattern_synonyms == 1
-  highlight! def link haskellPatternKeyword Structure
-endif
-if exists('g:haskell_enable_typeroles') && g:haskell_enable_typeroles == 1
-  highlight! def link haskellTypeRoles Keyword
-endif
-if exists('g:haskell_enable_static_pointers') && g:haskell_enable_static_pointers == 1
-  highlight! def link haskellStatic Keyword
+highlight def link haskellBottom Macro
+highlight def link haskellTH Boolean
+highlight def link haskellIdentifier Identifier
+highlight def link haskellForeignKeywords Structure
+highlight def link haskellKeyword Keyword
+highlight def link haskellDefault Keyword
+highlight def link haskellConditional Conditional
+highlight def link haskellNumber Number
+highlight def link haskellFloat Float
+highlight def link haskellSeparator Delimiter
+highlight def link haskellDelimiter Delimiter
+highlight def link haskellInfix Keyword
+highlight def link haskellOperators Operator
+highlight def link haskellQuote Operator
+highlight def link haskellShebang Comment
+highlight def link haskellLineComment Comment
+highlight def link haskellBlockComment Comment
+highlight def link haskellPragma SpecialComment
+highlight def link haskellString String
+highlight def link haskellChar String
+highlight def link haskellBacktick Operator
+highlight def link haskellQuasiQuoted String
+highlight def link haskellTodo Todo
+highlight def link haskellPreProc PreProc
+highlight def link haskellAssocType Type
+highlight def link haskellQuotedType Type
+highlight def link haskellType Type
+highlight def link haskellImportKeywords Include
+if get(g:, 'haskell_classic_highlighting', 0)
+  highlight def link haskellDeclKeyword Keyword
+  highlight def link haskellDecl Keyword
+  highlight def link haskellWhere Keyword
+  highlight def link haskellLet Keyword
+else
+  highlight def link haskellDeclKeyword Structure
+  highlight def link haskellDecl Structure
+  highlight def link haskellWhere Structure
+  highlight def link haskellLet Structure
 endif
 
-if exists('g:haskell_backpack') && g:haskell_backpack == 1
+if get(g:, 'haskell_enable_quantification', 0)
+  highlight def link haskellForall Operator
+endif
+if get(g:, 'haskell_enable_recursivedo', 0)
+  highlight def link haskellRecursiveDo Keyword
+endif
+if get(g:, 'haskell_enable_arrowsyntax', 0)
+  highlight def link haskellArrowSyntax Keyword
+endif
+if get(g:, 'haskell_enable_static_pointers', 0)
+  highlight def link haskellStatic Keyword
+endif
+if get(g:, 'haskell_classic_highlighting', 0)
+  if get(g:, 'haskell_enable_pattern_synonyms', 0)
+    highlight def link haskellPatternKeyword Keyword
+  endif
+  if get(g:, 'haskell_enable_typeroles', 0)
+    highlight def link haskellTypeRoles Keyword
+  endif
+else
+  if get(g:, 'haskell_enable_pattern_synonyms', 0)
+    highlight def link haskellPatternKeyword Structure
+  endif
+  if get(g:, 'haskell_enable_typeroles', 0)
+    highlight def link haskellTypeRoles Structure
+  endif
+endif
+
+if get(g:, 'haskell_backpack', 0)
   highlight def link haskellBackpackStructure Structure
   highlight def link haskellBackpackDependency Include
 endif
